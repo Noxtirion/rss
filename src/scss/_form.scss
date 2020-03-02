@@ -1,5 +1,5 @@
 .form {
-   margin: 0 5rem;
+   margin: 0 $pageMargin;
    display: flex;
    flex-direction: column;
    max-width: $pageWidth;
