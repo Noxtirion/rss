@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "./Button";
 
 function Form() {
    const [inputData, useInputData] = useState({ name: "", url: "" });
@@ -14,7 +15,8 @@ function Form() {
    };
 
    return (
-      <form>
+      <form className="form">
+         <label>Name:</label>
          <input
             type="text"
             value={inputData.name}
@@ -22,13 +24,15 @@ function Form() {
             placeholder="Add name..."
             onChange={HandleChange}
          />
+         <label>URL:</label>
          <input
             type="text"
             value={inputData.url}
             name="url"
-            placeholder="Add url..."
+            placeholder="Add URL..."
             onChange={HandleChange}
          />
+         <Button text="Add" />
       </form>
    );
 }
