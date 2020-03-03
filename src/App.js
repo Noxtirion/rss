@@ -6,7 +6,8 @@ import { Switch, Route } from "react-router-dom";
 import FeedPage from "./components/FeedPage";
 
 function App() {
-   // const feed = localStorage.getItem("feed");
+   const feed = localStorage.getItem("feed");
+   console.log(feed[0].name);
 
    return (
       <div>
@@ -17,9 +18,9 @@ function App() {
                   <Form />
                </div>
             </Route>
-            {/* <Route exact path={`/${feed[0].name}`}>
+            <Route exact path={`/${feed[0].name}`}>
                <FeedPage />
-            </Route> */}
+            </Route>
          </Switch>
       </div>
    );

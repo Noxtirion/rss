@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function CollectionPage(props) {
    console.log(props);
-   // localStorage.setItem("feed", { props });
+   localStorage.setItem("feed", { props });
 
    return (
       <div className="collectionPage">
