@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import CollectionPage from "./CollectionPage";
+import { observer } from "mobx-react";
+import { toJS } from "mobx";
 
-function Form(props) {
+function Form({ store }) {
    const [inputData, useInputData] = useState({ name: "", url: "" });
    const [feedData, useFeedData] = useState([]);
 
@@ -19,11 +21,17 @@ function Form(props) {
    const HandleSubmit = e => {
       e.preventDefault();
       useFeedData(prevFeedData => [...prevFeedData, inputData]);
-      console.log(feedData[0]);
+
+      // store.setFeedStore(feedData);
    };
 
-   const addCollection = feedData.map(item => (
-      <CollectionPage key={item.name} name={item.name} url={item.url} />
+   useEffect(() => {
+      store.setFeedStore(feedData);
+      console.log(toJS(store.feedStore));
+   });
+
+   const addCollection = feedData.map((item, k) => (
+      <CollectionPage key={k} name={item.name} url={item.url} />
    ));
 
    return (
@@ -52,4 +60,4 @@ function Form(props) {
    );
 }
 
-export default Form;
+export default observer(Form);

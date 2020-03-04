@@ -1,14 +1,14 @@
 import { observable, action } from "mobx";
 
 class Store {
-   @observable inputData = { name: "test", url: "" };
-   @observable feedData = [];
+   @observable inputStore = [];
+   @observable feedStore = [];
 
-   @action setInputData(inputData) {
-      this.inputData = inputData;
+   @action setInputStore(inputStore) {
+      this.inputStore = inputStore;
    }
-   @action setFeedData(feedData) {
-      this.feedData = feedData;
+   @action setFeedStore(feedStore) {
+      this.feedStore = feedStore;
    }
 }
 
