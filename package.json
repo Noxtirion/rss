@@ -13,6 +13,7 @@
       "react": "^16.13.0",
       "react-app-rewire-mobx": "^1.0.9",
       "react-dom": "^16.13.0",
+      "react-hook-form": "^4.10.1",
       "react-router-dom": "^5.1.2",
       "react-scripts": "3.4.0"
    },
