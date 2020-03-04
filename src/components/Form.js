@@ -27,13 +27,19 @@ function Form({ store }) {
       // store.setFeedStore(feedData);
    };
 
+   const RemoveFeed = x => {
+      const index = feedData.indexOf(x);
+      useFeedData(prevFeedData => prevFeedData.filter(value => value !== prevFeedData[index]));
+      console.log(index);
+   };
+
    useEffect(() => {
       store.setFeedStore(feedData);
-      console.log(toJS(store.feedStore));
+      // console.log(toJS(store.feedStore));
    });
 
    const addCollection = feedData.map((item, k) => (
-      <CollectionPage key={k} name={item.name} url={item.url} />
+      <CollectionPage key={k} name={item.name} url={item.url} remove={RemoveFeed} index={item} />
    ));
 
    return (

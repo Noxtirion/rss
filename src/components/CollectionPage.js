@@ -2,7 +2,8 @@ import React from "react";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 
-function CollectionPage({ name, url }) {
+function CollectionPage({ index, name, url, remove }) {
+   // console.log(remove);
    return (
       <div className="collectionPage">
          <h3>{name} </h3>
@@ -10,7 +11,9 @@ function CollectionPage({ name, url }) {
          <Link to={`/feed/${name}`}>
             <Button text="Open" />
          </Link>
-         <Button text="Delete" />
+         <button className="button" onClick={() => remove(index)}>
+            Delete
+         </button>
       </div>
    );
 }
