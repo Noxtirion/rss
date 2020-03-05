@@ -3,15 +3,17 @@ import Button from "./Button";
 import CollectionPage from "./CollectionPage";
 import { observer } from "mobx-react";
 import { toJS } from "mobx";
-import { useForm } from "react-hook-form";
+import Validation from "./Validation";
+import ErrorMsg from "./ErrorMsg";
 
 function Form({ store }) {
    const [inputData, useInputData] = useState({ name: "", url: "" });
+   const [error, setError] = useState(null);
    const [feedData, useFeedData] = useState([]);
-   const { handleSubmit, register, errors } = useForm();
 
    const HandleChange = e => {
       const { name, value } = e.target;
+      // console.log(inputData);
       useInputData(prevInputData => {
          return {
             ...prevInputData,
@@ -20,63 +22,68 @@ function Form({ store }) {
       });
    };
 
-   const HandleSubmit = e => {
-      // e.preventDefault();
+   const FeedUpdate = () => {
       useFeedData(prevFeedData => [...prevFeedData, inputData]);
+   };
 
+   const HandleSubmit = e => {
+      e.preventDefault();
+      const handleError = Validation(inputData, feedData);
+
+      if (handleError) {
+         setError(handleError);
+         return;
+      } else {
+         setError(null);
+         FeedUpdate();
+      }
+
+      // console.log(feedData);
       // store.setFeedStore(feedData);
    };
 
+   console.log(error);
    const RemoveFeed = x => {
       const index = feedData.indexOf(x);
       useFeedData(prevFeedData => prevFeedData.filter(value => value !== prevFeedData[index]));
-      console.log(index);
+      // console.log(index);
    };
 
    useEffect(() => {
       store.setFeedStore(feedData);
+
       // console.log(toJS(store.feedStore));
    });
 
    const addCollection = feedData.map((item, k) => (
       <CollectionPage key={k} name={item.name} url={item.url} remove={RemoveFeed} index={item} />
    ));
-
+   // console.log(inputData);
    return (
       <>
-         <form className="form" onSubmit={handleSubmit(HandleSubmit)}>
+         <form className="form" onSubmit={HandleSubmit}>
             <label>Name:</label>
             <input
                type="text"
                value={inputData.name}
                name="name"
-               ref={register({
-                  required: true,
-                  maxLength: {
-                     value: 15,
-                     message: "Max 15 characters..."
-                  }
-               })}
                placeholder="Add name..."
                onChange={HandleChange}
             />
-            <h3>{errors.name && errors.name.message}</h3>
             <label>URL:</label>
             <input
                type="url"
                value={inputData.url}
                name="url"
-               ref={register({
-                  required: true,
-                  pattern: {
-                     value: /(https?:\/\/)?([\w-])+\.{1}([a-zA-Z]{2,63})([/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/,
-                     message: "Invalid url address"
-                  }
-               })}
+               // pattern: {
+               //    value: /(https?:\/\/)?([\w-])+\.{1}([a-zA-Z]{2,63})([/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/
+               //    // message: "Please provide valid url address :)"
+               // }
+
                placeholder="Add URL..."
                onChange={HandleChange}
             />
-            <h3>{errors.url && errors.url.message}</h3>
+            {error && <ErrorMsg msg={error} />}
             <Button text="Add" />
          </form>
          {addCollection}
