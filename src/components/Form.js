@@ -42,7 +42,7 @@ function Form({ store }) {
       // store.setFeedStore(feedData);
    };
 
-   console.log(error);
+   // console.log(error);
    const RemoveFeed = x => {
       const index = feedData.indexOf(x);
       useFeedData(prevFeedData => prevFeedData.filter(value => value !== prevFeedData[index]));
@@ -75,11 +75,6 @@ function Form({ store }) {
                type="url"
                value={inputData.url}
                name="url"
-               // pattern: {
-               //    value: /(https?:\/\/)?([\w-])+\.{1}([a-zA-Z]{2,63})([/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/
-               //    // message: "Please provide valid url address :)"
-               // }
-
                placeholder="Add URL..."
                onChange={HandleChange}
             />

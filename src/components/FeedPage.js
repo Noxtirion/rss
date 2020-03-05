@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import FeedInfo from "./FeedInfo";
+// import { useParams } from "react-router-dom";
 
 function FeedPage({ feedStore }) {
    const [feedTitle, setFeedTitle] = useState();
    const [feedDesc, setFeedDesc] = useState();
+   const [feedImg, setFeedImg] = useState();
+   const [feedLink, setFeedLink] = useState();
 
-   const { nameId } = useParams();
+   // const { nameId } = useParams();
 
    const [feed] = feedStore;
-   const thisNameId = feedStore.find(item => item.name === nameId);
+   // const thisNameId = feedStore.find(item => item.name === nameId);
 
    useEffect(() => {
       let url = `https://api.rss2json.com/v1/api.json?rss_url=${feed.url}`;
@@ -16,19 +19,22 @@ function FeedPage({ feedStore }) {
          .then(res => res.json())
          .then(res => {
             console.log(res.items);
-
-            // childNodes[1].nodeValue
+            setFeedTitle(res.items[1].title);
+            setFeedDesc(res.items[1].description);
+            setFeedImg(res.items[1].enclosure.link);
+            setFeedLink(res.items[1].link);
+            console.log(res.items[1].enclosure.link);
          });
    });
 
-   // const thisNameIda = feedStore.map(item => item.name);
-
-   // console.log(thisNameId);
-
    return (
       <>
-         <h1>{feedTitle}</h1>
-         <p>{feedDesc}</p>
+         <FeedInfo
+            feedTitle={feedTitle}
+            feedDesc={feedDesc}
+            feedImg={feedImg}
+            feedLink={feedLink}
+         />
       </>
    );
 }

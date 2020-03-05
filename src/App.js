@@ -18,7 +18,7 @@ function App({ store }) {
                   <Form store={store} />
                </div>
             </Route>
-            <Route path="/feed/:nameId">
+            <Route path="/feed/">
                <FeedPage feedStore={toJS(store.feedStore)} />
             </Route>
          </Switch>
