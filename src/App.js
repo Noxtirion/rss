@@ -4,26 +4,25 @@ import TopBar from "./components/TopBar";
 import Form from "./components/Form";
 import { Switch, Route } from "react-router-dom";
 import FeedPage from "./components/FeedPage";
-import { observer } from "mobx-react";
-import { toJS } from "mobx";
+// import { observer } from "mobx-react";
+// import { toJS } from "mobx";
 
-function App({ store }) {
-   // console.log(toJS(store.inputStore));
+function App() {
    return (
       <div>
          <TopBar />
          <Switch>
             <Route exact path="/">
                <div className="appWrapper">
-                  <Form store={store} />
+                  <Form />
                </div>
             </Route>
-            <Route path="/feed/">
-               <FeedPage feedStore={toJS(store.feedStore)} />
+            <Route exact path="/:nameId">
+               <FeedPage />
             </Route>
          </Switch>
       </div>
    );
 }
 
-export default observer(App);
+export default App;

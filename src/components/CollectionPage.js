@@ -4,11 +4,17 @@ import { Link } from "react-router-dom";
 
 function CollectionPage({ index, name, url, remove }) {
    // console.log(remove);
+
+   // const inputUrl = () => {
+   //    store.setInputStore(url);
+   // };
+   // inputUrl();
+
    return (
       <div className="collectionPage">
          <h3>{name} </h3>
          <h3>{url}</h3>
-         <Link to={`/feed/${name}`}>
+         <Link to={`/${name}`}>
             <Button text="Open" />
          </Link>
          <button className="button" onClick={() => remove(index)}>

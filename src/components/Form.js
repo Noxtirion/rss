@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import CollectionPage from "./CollectionPage";
-import { observer } from "mobx-react";
-import { toJS } from "mobx";
+// import { observer } from "mobx-react";
 import Validation from "./Validation";
 import ErrorMsg from "./ErrorMsg";
+// import { toJS } from "mobx";
 
-function Form({ store }) {
+function Form() {
    const [inputData, useInputData] = useState({ name: "", url: "" });
    const [error, setError] = useState(null);
    const [feedData, useFeedData] = useState([]);
 
    const HandleChange = e => {
       const { name, value } = e.target;
-      // console.log(inputData);
       useInputData(prevInputData => {
          return {
             ...prevInputData,
@@ -37,28 +36,35 @@ function Form({ store }) {
          setError(null);
          FeedUpdate();
       }
-
-      // console.log(feedData);
-      // store.setFeedStore(feedData);
    };
 
-   // console.log(error);
    const RemoveFeed = x => {
       const index = feedData.indexOf(x);
       useFeedData(prevFeedData => prevFeedData.filter(value => value !== prevFeedData[index]));
-      // console.log(index);
+      localStorage.setItem("feeds", JSON.stringify(feedData));
+   };
+
+   const GetFeedData = () => {
+      const feedData = localStorage.getItem("feeds");
+
+      useFeedData(JSON.parse(feedData));
    };
 
    useEffect(() => {
-      store.setFeedStore(feedData);
+      GetFeedData();
+   }, []);
 
+   useEffect(() => {
+      // store.setFeedStore(feedData);
+      localStorage.setItem("feeds", JSON.stringify(feedData));
       // console.log(toJS(store.feedStore));
+      // console.log(feedData);
    });
 
    const addCollection = feedData.map((item, k) => (
       <CollectionPage key={k} name={item.name} url={item.url} remove={RemoveFeed} index={item} />
    ));
-   // console.log(inputData);
+
    return (
       <>
          <form className="form" onSubmit={HandleSubmit}>
@@ -86,4 +92,4 @@ function Form({ store }) {
    );
 }
 
-export default observer(Form);
+export default Form;
