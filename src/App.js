@@ -4,8 +4,6 @@ import TopBar from "./components/TopBar";
 import Form from "./components/Form";
 import { Switch, Route } from "react-router-dom";
 import FeedPage from "./components/FeedPage";
-// import { observer } from "mobx-react";
-// import { toJS } from "mobx";
 
 function App() {
    return (

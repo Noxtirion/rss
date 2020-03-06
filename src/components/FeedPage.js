@@ -16,7 +16,6 @@ function FeedPage() {
    // localStorage.setItem("openFeed", JSON.stringify(feed));
 
    // console.log(getFeed);
-   // console.log(feedStore);
 
    useEffect(() => {
       let url = `https://api.rss2json.com/v1/api.json?rss_url=${feed.url}`;

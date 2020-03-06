@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import CollectionPage from "./CollectionPage";
-// import { observer } from "mobx-react";
 import Validation from "./Validation";
 import ErrorMsg from "./ErrorMsg";
-// import { toJS } from "mobx";
 
 function Form() {
    const [inputData, useInputData] = useState({ name: "", url: "" });
@@ -55,10 +53,7 @@ function Form() {
    }, []);
 
    useEffect(() => {
-      // store.setFeedStore(feedData);
       localStorage.setItem("feeds", JSON.stringify(feedData));
-      // console.log(toJS(store.feedStore));
-      // console.log(feedData);
    });
 
    const addCollection = feedData.map((item, k) => (
