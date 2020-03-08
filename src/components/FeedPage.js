@@ -1,47 +1,62 @@
 import React, { useState, useEffect } from "react";
 import FeedInfo from "./FeedInfo";
 import { useParams } from "react-router-dom";
+let Parser = require("rss-parser");
+let parser = new Parser();
 
 function FeedPage() {
-   const [feedTitle, setFeedTitle] = useState();
-   const [feedDesc, setFeedDesc] = useState();
-   const [feedImg, setFeedImg] = useState();
-   const [feedLink, setFeedLink] = useState();
+   const [allFeed, setAllFeed] = useState([
+      {
+         feedTitle: "",
+         feedDesc: "",
+         feedImg: "",
+         feedLink: ""
+      }
+   ]);
 
+   const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
    const { nameId } = useParams();
-   const getFeed = JSON.parse(localStorage.getItem("feeds"));
 
+   const getFeed = JSON.parse(localStorage.getItem("feeds"));
    const feed = getFeed.find(item => item.name === nameId);
 
-   // localStorage.setItem("openFeed", JSON.stringify(feed));
-
-   // console.log(getFeed);
+   //useHistory uzyc do obslugi bledu po usunieciu feeda i cofnieciu strony??
 
    useEffect(() => {
-      let url = `https://api.rss2json.com/v1/api.json?rss_url=${feed.url}`;
-      // console.log(feed.url);
-      fetch(url)
-         .then(res => res.json())
-         .then(res => {
-            // console.log(res.items);
-            setFeedTitle(res.items[1].title);
-            setFeedDesc(res.items[1].description);
-            setFeedImg(res.items[1].enclosure.link);
-            setFeedLink(res.items[1].link);
-            // console.log(res.items[1].enclosure.link);
+      (async () => {
+         await parser.parseURL(CORS_PROXY + feed.url, (err, resFeed) => {
+            if (err) throw err;
+            console.log(resFeed.title);
+            resFeed.items.forEach(entry => {
+               setAllFeed(prevAllFeed => {
+                  return [
+                     ...prevAllFeed,
+                     {
+                        feedTitle: entry.title !== undefined ? entry.title : "",
+                        feedDesc: entry.contentSnippet !== undefined ? entry.contentSnippet : "",
+                        feedImg: entry.enclosure !== undefined ? entry.enclosure.url : "",
+                        feedLink: entry.link !== undefined ? entry.link : ""
+                     }
+                  ];
+               });
+               // console.log(entry);
+            });
          });
-   });
+      })();
+   }, [feed.url]);
+   console.log(allFeed);
 
-   return (
-      <>
-         <FeedInfo
-            feedTitle={feedTitle}
-            feedDesc={feedDesc}
-            feedImg={feedImg}
-            feedLink={feedLink}
-         />
-      </>
-   );
+   const feedInfoCollection = allFeed.map((element, k) => (
+      <FeedInfo
+         key={k}
+         feedTitle={element.feedTitle}
+         feedDesc={element.feedDesc}
+         feedImg={element.feedImg}
+         feedLink={element.feedLink}
+      />
+   ));
+
+   return <>{feedInfoCollection}</>;
 }
 
 export default FeedPage;
