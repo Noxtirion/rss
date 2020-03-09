@@ -7,7 +7,9 @@ function TopBar(props) {
          <div className="header__wrapper">
             <h3>RSS App</h3>
             <nav>
-               <Link to="/">Home</Link>
+               <Link to="/">
+                  <img src={require("../home.svg")} alt="Home" title="Return to home page" />
+               </Link>
             </nav>
          </div>
       </header>

@@ -1,13 +1,17 @@
 .header {
    border-bottom: 1px solid black;
    .header__wrapper {
-      width: 12em;
+      width: 10rem;
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
       h3 {
-         margin-left: $pageMargin;
+         margin-left: 0.5rem;
+      }
+      img {
+         width: 3rem;
+         height: 3rem;
       }
    }
 }

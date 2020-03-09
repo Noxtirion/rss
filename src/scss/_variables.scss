@@ -1,2 +1,13 @@
 $pageWidth: 1200px;
 $pageMargin: 2rem;
+
+@mixin textWrap($overflow-wrap: break-word) {
+   overflow-wrap: $overflow-wrap;
+   @content;
+}
+
+@mixin box($margin: 1rem) {
+   margin: $margin;
+   box-shadow: 6px 6px 10px gray;
+   @content;
+}

@@ -6,7 +6,7 @@ function CollectionPage({ index, name, url, remove }) {
    return (
       <div className="collectionPage">
          <h3>{name} </h3>
-         <h3>{url}</h3>
+         <h3 className="collectionPage__url">{url}</h3>
          <Link to={`/${name}`}>
             <Button text="Open" />
          </Link>
