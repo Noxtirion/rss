@@ -15,47 +15,53 @@ function FeedPage() {
          feedLink: ""
       }
    ]);
-
    const [feedMainTitle, setFeedMainTitle] = useState("");
 
    const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
    const { nameId } = useParams();
 
-   const getFeed = JSON.parse(localStorage.getItem("feeds"));
-   const feed = getFeed.find(item => item.name === nameId);
-
-   //useHistory uzyc do obslugi bledu po usunieciu feeda i cofnieciu strony??
-
    useEffect(() => {
       let cancel = false;
       (async () => {
-         await parser.parseURL(CORS_PROXY + feed.url, (err, resFeed) => {
-            if (err) throw err;
-            if (cancel) {
-               return;
-            }
-            console.log(resFeed.title !== undefined ? resFeed.title : "");
-            setFeedMainTitle(resFeed.title);
-            resFeed.items.forEach(entry => {
-               setAllFeed(prevAllFeed => {
-                  return [
-                     ...prevAllFeed,
-                     {
-                        feedTitle: entry.title !== undefined ? entry.title : "",
-                        feedDesc: entry.contentSnippet !== undefined ? entry.contentSnippet : "",
-                        feedImg: entry.enclosure !== undefined ? entry.enclosure.url : "",
-                        feedLink: entry.link !== undefined ? entry.link : ""
-                     }
-                  ];
+         const getFeed = await JSON.parse(localStorage.getItem("feeds"));
+         if (cancel) {
+            return;
+         }
+         const feed = await getFeed.find(item => item.name === nameId);
+         if (cancel) {
+            return;
+         }
+         try {
+            await parser.parseURL(CORS_PROXY + feed.url, (err, resFeed) => {
+               if (err) throw err;
+               if (cancel) {
+                  return;
+               }
+               console.log(resFeed.title !== undefined ? resFeed.title : "");
+               setFeedMainTitle(resFeed.title);
+               resFeed.items.forEach(entry => {
+                  setAllFeed(prevAllFeed => {
+                     return [
+                        ...prevAllFeed,
+                        {
+                           feedTitle: entry.title !== undefined ? entry.title : "",
+                           feedDesc: entry.contentSnippet !== undefined ? entry.contentSnippet : "",
+                           feedImg: entry.enclosure !== undefined ? entry.enclosure.url : "",
+                           feedLink: entry.link !== undefined ? entry.link : ""
+                        }
+                     ];
+                  });
+                  // console.log(entry);
                });
-               // console.log(entry);
             });
-         });
+         } catch (err) {
+            console.log(`${err} Something went wrong...`);
+         }
       })();
       return () => {
          cancel = true;
       };
-   }, [feed.url]);
+   }, [nameId]);
    console.log(allFeed);
 
    const feedInfoCollection = allFeed.map((element, k) => (
