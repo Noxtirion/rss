@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import FeedInfo from "./FeedInfo";
 import { useParams } from "react-router-dom";
+import Spinner from "./Spinner";
 let Parser = require("rss-parser");
 let parser = new Parser();
+
 // const controller = new AbortController();
 // const signal = controller.signal;
 
@@ -16,6 +18,7 @@ function FeedPage() {
       }
    ]);
    const [feedMainTitle, setFeedMainTitle] = useState("");
+   const [isLoading, setIsLoading] = useState(false);
 
    const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
    const { nameId } = useParams();
@@ -53,6 +56,7 @@ function FeedPage() {
                   });
                   // console.log(entry);
                });
+               setIsLoading(true);
             });
          } catch (err) {
             console.log(`${err} Something went wrong...`);
@@ -76,14 +80,18 @@ function FeedPage() {
 
    return (
       <>
-         <div className="feedInfo">
-            <h1 className="feedInfo__mainTitle">
-               <img src={require("../newspaper.svg")} alt="Newspaper icon" />
-               {feedMainTitle}
-            </h1>
+         {isLoading ? (
+            <div className="feedInfo">
+               <h1 className="feedInfo__mainTitle">
+                  <img src={require("../newspaper.svg")} alt="Newspaper icon" />
+                  {feedMainTitle}
+               </h1>
 
-            {feedInfoCollection}
-         </div>
+               {feedInfoCollection}
+            </div>
+         ) : (
+            <Spinner />
+         )}
       </>
    );
 }
