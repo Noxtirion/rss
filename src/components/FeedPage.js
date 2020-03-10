@@ -27,9 +27,13 @@ function FeedPage() {
    //useHistory uzyc do obslugi bledu po usunieciu feeda i cofnieciu strony??
 
    useEffect(() => {
+      let cancel = false;
       (async () => {
          await parser.parseURL(CORS_PROXY + feed.url, (err, resFeed) => {
             if (err) throw err;
+            if (cancel) {
+               return;
+            }
             console.log(resFeed.title !== undefined ? resFeed.title : "");
             setFeedMainTitle(resFeed.title);
             resFeed.items.forEach(entry => {
@@ -48,6 +52,9 @@ function FeedPage() {
             });
          });
       })();
+      return () => {
+         cancel = true;
+      };
    }, [feed.url]);
    console.log(allFeed);
 
