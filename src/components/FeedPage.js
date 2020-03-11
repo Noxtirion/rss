@@ -41,7 +41,7 @@ function FeedPage() {
          }
          try {
             await parser.parseURL(CORS_PROXY + feed.url, (err, resFeed) => {
-               if (err) throw err;
+               if (err) throw console.log(`${err} (Fetch problem)`);
                if (cancel) {
                   return;
                }
@@ -93,7 +93,6 @@ function FeedPage() {
                   <img src={require("../newspaper.svg")} alt="Newspaper icon" />
                   {feedMainTitle}
                </h1>
-
                {feedInfoCollection}
             </div>
          ) : (
