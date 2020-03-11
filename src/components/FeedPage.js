@@ -13,7 +13,8 @@ function FeedPage() {
          feedTitle: "",
          feedDesc: "",
          feedImg: "",
-         feedLink: ""
+         feedLink: "",
+         feedDate: ""
       }
    ]);
    const [feedMainTitle, setFeedMainTitle] = useState("");
@@ -22,7 +23,7 @@ function FeedPage() {
       threshold: 0,
       rootMargin: "-100px"
    });
-   console.log(entry);
+   // console.log(entry);
    const check = entry !== undefined && !entry.isIntersecting;
    const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
    const { nameId } = useParams();
@@ -54,7 +55,8 @@ function FeedPage() {
                            feedTitle: entry.title !== undefined ? entry.title : "",
                            feedDesc: entry.contentSnippet !== undefined ? entry.contentSnippet : "",
                            feedImg: entry.enclosure !== undefined ? entry.enclosure.url : "",
-                           feedLink: entry.link !== undefined ? entry.link : ""
+                           feedLink: entry.link !== undefined ? entry.link : "",
+                           feedDate: entry.pubDate !== undefined ? entry.pubDate : ""
                         }
                      ];
                   });
@@ -79,6 +81,7 @@ function FeedPage() {
          feedDesc={element.feedDesc}
          feedImg={element.feedImg}
          feedLink={element.feedLink}
+         feedDate={element.feedDate}
       />
    ));
 

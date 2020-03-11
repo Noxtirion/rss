@@ -10,7 +10,9 @@ html {
 
 body {
    margin: 0px;
-   font-family: Georgia, "Times New Roman", Times, serif;
+   font-family: Cantata One, Georgia, "Times New Roman", Times, serif;
+   line-height: 1.5;
+   // letter-spacing: 1.2px;
 }
 
 @import "_variables.scss";

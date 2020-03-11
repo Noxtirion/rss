@@ -76,7 +76,7 @@ function Form() {
                type="text"
                value={inputData.name}
                name="name"
-               placeholder="Add name..."
+               placeholder=" Add name..."
                onChange={HandleChange}
             />
             <label>URL:</label>
@@ -84,7 +84,7 @@ function Form() {
                type="url"
                value={inputData.url}
                name="url"
-               placeholder="Add URL..."
+               placeholder=" Add URL..."
                onChange={HandleChange}
             />
             {error && <ErrorMsg msg={error} />}
