@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import FeedInfo from "./FeedInfo";
 import { useParams } from "react-router-dom";
 import Spinner from "./Spinner";
+import { useInView } from "react-intersection-observer";
+import ButtonUp from "./ButtonUp";
 let Parser = require("rss-parser");
 let parser = new Parser();
-
-// const controller = new AbortController();
-// const signal = controller.signal;
 
 function FeedPage() {
    const [allFeed, setAllFeed] = useState([
@@ -19,7 +18,12 @@ function FeedPage() {
    ]);
    const [feedMainTitle, setFeedMainTitle] = useState("");
    const [isLoading, setIsLoading] = useState(false);
-
+   const [ref, inView, entry] = useInView({
+      threshold: 0,
+      rootMargin: "-100px"
+   });
+   console.log(entry);
+   const check = entry !== undefined && !entry.isIntersecting;
    const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
    const { nameId } = useParams();
 
@@ -40,7 +44,7 @@ function FeedPage() {
                if (cancel) {
                   return;
                }
-               console.log(resFeed.title !== undefined ? resFeed.title : "");
+               // console.log(resFeed.title !== undefined ? resFeed.title : "");
                setFeedMainTitle(resFeed.title);
                resFeed.items.forEach(entry => {
                   setAllFeed(prevAllFeed => {
@@ -66,7 +70,7 @@ function FeedPage() {
          cancel = true;
       };
    }, [nameId]);
-   console.log(allFeed);
+   // console.log(allFeed);
 
    const feedInfoCollection = allFeed.map((element, k) => (
       <FeedInfo
@@ -82,7 +86,7 @@ function FeedPage() {
       <>
          {isLoading ? (
             <div className="feedInfo">
-               <h1 className="feedInfo__mainTitle">
+               <h1 className="feedInfo__mainTitle" ref={ref}>
                   <img src={require("../newspaper.svg")} alt="Newspaper icon" />
                   {feedMainTitle}
                </h1>
@@ -92,6 +96,7 @@ function FeedPage() {
          ) : (
             <Spinner />
          )}
+         <ButtonUp appear={check ? "appear" : ""} />
       </>
    );
 }

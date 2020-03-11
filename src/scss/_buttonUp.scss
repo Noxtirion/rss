@@ -1,0 +1,38 @@
+.button-top {
+   pointer-events: none;
+   opacity: 0;
+   transition: opacity 400ms ease;
+   height: 4rem;
+   width: 4rem;
+   position: fixed;
+   bottom: 1rem;
+   right: 1.5rem;
+   @include flex;
+
+   &__link {
+      @include flex;
+      height: 2.6rem;
+      width: 2.6rem;
+      border: 1px solid #000;
+      border-radius: 50%;
+      &:hover {
+         height: 3rem;
+         width: 3rem;
+      }
+   }
+
+   &__return {
+      border-radius: 50%;
+      height: 2.5rem;
+      width: 2.5rem;
+      cursor: pointer;
+      // outline: none;
+      border: 0rem;
+      z-index: 3;
+   }
+}
+
+.button-top.appear {
+   pointer-events: visible;
+   opacity: 0.5;
+}

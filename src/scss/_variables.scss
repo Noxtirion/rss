@@ -11,3 +11,10 @@ $pageMargin: 2rem;
    box-shadow: 6px 6px 10px gray;
    @content;
 }
+
+@mixin flex($display: flex, $justify-content: center, $align-items: center) {
+   display: $display;
+   justify-content: $justify-content;
+   align-items: $align-items;
+   @content;
+}

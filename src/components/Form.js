@@ -3,12 +3,20 @@ import Button from "./Button";
 import CollectionPage from "./CollectionPage";
 import Validation from "./Validation";
 import ErrorMsg from "./ErrorMsg";
+import ButtonUp from "./ButtonUp";
+import { useInView } from "react-intersection-observer";
 
 function Form() {
    const [inputData, useInputData] = useState({ name: "", url: "" });
    const [error, setError] = useState(null);
    const [feedData, useFeedData] = useState([]);
+   const [ref, inView, entry] = useInView({
+      threshold: 0,
+      rootMargin: "-100px"
+   });
 
+   const checkView = entry !== undefined && !entry.isIntersecting;
+   // console.log(entry);
    const HandleChange = e => {
       const { name, value } = e.target;
       useInputData(prevInputData => {
@@ -62,7 +70,7 @@ function Form() {
 
    return (
       <>
-         <form className="form" onSubmit={HandleSubmit}>
+         <form className="form" onSubmit={HandleSubmit} ref={ref}>
             <label>Name:</label>
             <input
                type="text"
@@ -83,6 +91,7 @@ function Form() {
             <Button text="Add" />
          </form>
          {addCollection}
+         <ButtonUp appear={checkView ? "appear" : ""} />
       </>
    );
 }
