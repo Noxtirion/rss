@@ -9,7 +9,7 @@ import { useInView } from "react-intersection-observer";
 function Form() {
    const [inputData, useInputData] = useState({ name: "", url: "" });
    const [error, setError] = useState(null);
-   const [feedData, useFeedData] = useState([]);
+   const [feedData, useFeedData] = useState(null);
    const [ref, inView, entry] = useInView({
       threshold: 0,
       rootMargin: "-100px"
@@ -28,7 +28,9 @@ function Form() {
    };
 
    const FeedUpdate = () => {
-      useFeedData(prevFeedData => [...prevFeedData, inputData]);
+      useFeedData(prevFeedData =>
+         prevFeedData !== null ? [...prevFeedData, inputData] : [inputData]
+      );
    };
 
    const HandleSubmit = e => {
@@ -51,8 +53,8 @@ function Form() {
    };
 
    const GetFeedData = () => {
-      const feedData = localStorage.getItem("feeds");
-      useFeedData(JSON.parse(feedData));
+      const getData = localStorage.getItem("feeds") || null;
+      useFeedData(JSON.parse(getData));
    };
 
    useEffect(() => {
@@ -63,9 +65,11 @@ function Form() {
       localStorage.setItem("feeds", JSON.stringify(feedData));
    });
 
-   const addCollection = feedData.map((item, k) => (
-      <CollectionPage key={k} name={item.name} url={item.url} remove={RemoveFeed} index={item} />
-   ));
+   const addCollection =
+      feedData !== null &&
+      feedData.map((item, k) => (
+         <CollectionPage key={k} name={item.name} url={item.url} remove={RemoveFeed} index={item} />
+      ));
 
    return (
       <>

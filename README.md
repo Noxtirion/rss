@@ -6,7 +6,7 @@
 
 App allows to add URL and name it, then access to check its inner content.
 
-## Install 
+## Install
 
 `npm install`
 
@@ -29,4 +29,4 @@ All provided data is currently stored in Local Storage of Your browser, so as lo
 
 ## Live
 
-[Click to see app live](https://angry-hoover-a8e205.netlify.com/)
+[Click to see app live](https://determined-kare-41af28.netlify.com/)
