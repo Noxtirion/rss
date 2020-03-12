@@ -16,7 +16,7 @@ function Form() {
    });
 
    const checkView = entry !== undefined && !entry.isIntersecting;
-   // console.log(entry);
+
    const HandleChange = e => {
       const { name, value } = e.target;
       useInputData(prevInputData => {
@@ -52,7 +52,6 @@ function Form() {
 
    const GetFeedData = () => {
       const feedData = localStorage.getItem("feeds");
-
       useFeedData(JSON.parse(feedData));
    };
 

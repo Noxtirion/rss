@@ -4,11 +4,13 @@
    display: flex;
    flex-direction: column;
    max-width: $pageWidth;
+
    input {
       height: 2rem;
       border-radius: 5px;
       border: 1px solid #ccc;
    }
+
    label {
       padding: 1rem 0;
    }

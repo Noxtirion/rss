@@ -4,6 +4,7 @@
    height: 100vh;
    width: 100%;
    @include flex;
+
    .loading-page__spinner {
       height: 4rem;
       width: 4rem;
@@ -13,6 +14,7 @@
       animation: spinner 1s infinite linear;
    }
 }
+
 @keyframes spinner {
    100% {
       transform: rotate(360deg);

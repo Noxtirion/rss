@@ -23,7 +23,7 @@ function FeedPage() {
       threshold: 0,
       rootMargin: "-100px"
    });
-   // console.log(entry);
+
    const check = entry !== undefined && !entry.isIntersecting;
    const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
    const { nameId } = useParams();
@@ -45,7 +45,7 @@ function FeedPage() {
                if (cancel) {
                   return;
                }
-               // console.log(resFeed.title !== undefined ? resFeed.title : "");
+
                setFeedMainTitle(resFeed.title);
                resFeed.items.forEach(entry => {
                   setAllFeed(prevAllFeed => {
@@ -60,7 +60,6 @@ function FeedPage() {
                         }
                      ];
                   });
-                  // console.log(entry);
                });
                setIsLoading(true);
             });
@@ -72,7 +71,6 @@ function FeedPage() {
          cancel = true;
       };
    }, [nameId]);
-   // console.log(allFeed);
 
    const feedInfoCollection = allFeed.map((element, k) => (
       <FeedInfo
