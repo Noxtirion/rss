@@ -16,6 +16,7 @@ function Form() {
    });
 
    const checkView = entry !== undefined && !entry.isIntersecting;
+   const emptyField = "Complete the fields";
 
    const HandleChange = e => {
       const { name, value } = e.target;
@@ -33,13 +34,21 @@ function Form() {
       );
    };
 
+   const FeedEmpty = () => {
+      useFeedData([]);
+   };
+
    const HandleSubmit = e => {
       e.preventDefault();
-      const handleError = Validation(inputData, feedData);
 
-      if (handleError) {
+      const handleError = Validation(inputData, feedData, emptyField);
+
+      if (handleError && handleError !== emptyField) {
          setError(handleError);
          return;
+      } else if (handleError === emptyField) {
+         setError(handleError);
+         FeedEmpty();
       } else {
          setError(null);
          FeedUpdate();
@@ -79,7 +88,7 @@ function Form() {
                type="text"
                value={inputData.name}
                name="name"
-               placeholder=" Add name..."
+               placeholder=" Add name (3-12 characters)"
                onChange={HandleChange}
             />
             <label>URL:</label>
@@ -87,7 +96,7 @@ function Form() {
                type="url"
                value={inputData.url}
                name="url"
-               placeholder=" Add URL..."
+               placeholder=" Add URL"
                onChange={HandleChange}
             />
             {error && <ErrorMsg msg={error} />}

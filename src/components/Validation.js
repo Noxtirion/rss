@@ -1,8 +1,8 @@
-const Validation = (inputData, feedData) => {
+const Validation = (inputData, feedData, emptyField) => {
    if (feedData !== null) {
       const equalFeed = feedData.filter(item => item.name === inputData.name);
       const [equal] = equalFeed;
-      const regUrl = /(https?:\/\/)?([\w-])+\.{1}([a-zA-Z]{2,63})([/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/i;
+      const regUrl = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
       if (!inputData.name) {
          return "Name is required";
@@ -21,6 +21,8 @@ const Validation = (inputData, feedData) => {
       } else if (inputData.name === equal.name) {
          return "Name already exist";
       }
+   } else {
+      return emptyField;
    }
 };
 
