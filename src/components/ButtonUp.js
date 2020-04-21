@@ -1,6 +1,6 @@
 import React from "react";
-var Scroll = require("react-scroll");
-var scroll = Scroll.animateScroll;
+let Scroll = require("react-scroll");
+let scroll = Scroll.animateScroll;
 
 function ButtonUp(props) {
    return (
