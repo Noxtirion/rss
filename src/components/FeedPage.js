@@ -31,11 +31,11 @@ function FeedPage() {
    useEffect(() => {
       let cancel = false;
       (async () => {
-         const getFeed = await JSON.parse(localStorage.getItem("feeds"));
+         const getFeed = JSON.parse(localStorage.getItem("feeds"));
          if (cancel) {
             return;
          }
-         const feed = await getFeed.find(item => item.name === nameId);
+         const feed = getFeed.find(item => item.name === nameId);
          if (cancel) {
             return;
          }
