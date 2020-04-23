@@ -1,4 +1,4 @@
-const Validation = (inputData, feedData, emptyField) => {
+const validation = (inputData, feedData, emptyField) => {
    if (feedData !== null) {
       const equalFeed = feedData.filter(item => item.name === inputData.name);
       const [equal] = equalFeed;
@@ -26,4 +26,4 @@ const Validation = (inputData, feedData, emptyField) => {
    }
 };
 
-export default Validation;
+export default validation;

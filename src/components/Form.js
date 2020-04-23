@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import CollectionPage from "./CollectionPage";
-import Validation from "./Validation";
+import validation from "./validation";
 import ErrorMsg from "./ErrorMsg";
 import ButtonUp from "./ButtonUp";
 import { useInView } from "react-intersection-observer";
 
 function Form() {
-   const [inputData, useInputData] = useState({ name: "", url: "" });
+   const [inputData, setInputData] = useState({ name: "", url: "" });
    const [error, setError] = useState(null);
-   const [feedData, useFeedData] = useState(null);
+   const [feedData, setFeedData] = useState(null);
    const [ref, inView, entry] = useInView({
       threshold: 0,
       rootMargin: "-100px"
@@ -18,9 +18,9 @@ function Form() {
    const checkView = entry !== undefined && !entry.isIntersecting;
    const emptyField = "Complete the fields";
 
-   const HandleChange = e => {
+   const handleChange = e => {
       const { name, value } = e.target;
-      useInputData(prevInputData => {
+      setInputData(prevInputData => {
          return {
             ...prevInputData,
             [name]: value
@@ -28,46 +28,46 @@ function Form() {
       });
    };
 
-   const FeedUpdate = () => {
-      useFeedData(prevFeedData =>
+   const feedUpdate = () => {
+      setFeedData(prevFeedData =>
          prevFeedData !== null ? [...prevFeedData, inputData] : [inputData]
       );
    };
 
-   const FeedEmpty = () => {
-      useFeedData([]);
+   const feedEmpty = () => {
+      setFeedData([]);
    };
 
-   const HandleSubmit = e => {
+   const handleSubmit = e => {
       e.preventDefault();
 
-      const handleError = Validation(inputData, feedData, emptyField);
+      const handleError = validation(inputData, feedData, emptyField);
 
       if (handleError && handleError !== emptyField) {
          setError(handleError);
          return;
       } else if (handleError === emptyField) {
          setError(handleError);
-         FeedEmpty();
+         feedEmpty();
       } else {
          setError(null);
-         FeedUpdate();
+         feedUpdate();
       }
    };
 
-   const RemoveFeed = x => {
+   const removeFeed = x => {
       const index = feedData.indexOf(x);
-      useFeedData(prevFeedData => prevFeedData.filter(value => value !== prevFeedData[index]));
+      setFeedData(prevFeedData => prevFeedData.filter(value => value !== prevFeedData[index]));
       localStorage.setItem("feeds", JSON.stringify(feedData));
    };
 
-   const GetFeedData = () => {
+   const getFeedData = () => {
       const getData = localStorage.getItem("feeds") || null;
-      useFeedData(JSON.parse(getData));
+      setFeedData(JSON.parse(getData));
    };
 
    useEffect(() => {
-      GetFeedData();
+      getFeedData();
    }, []);
 
    useEffect(() => {
@@ -77,19 +77,19 @@ function Form() {
    const addCollection =
       feedData !== null &&
       feedData.map((item, k) => (
-         <CollectionPage key={k} name={item.name} url={item.url} remove={RemoveFeed} index={item} />
+         <CollectionPage key={k} name={item.name} url={item.url} remove={removeFeed} index={item} />
       ));
 
    return (
       <>
-         <form className="form" onSubmit={HandleSubmit} ref={ref}>
+         <form className="form" onSubmit={handleSubmit} ref={ref}>
             <label>Name:</label>
             <input
                type="text"
                value={inputData.name}
                name="name"
                placeholder=" Add name (3-12 characters)"
-               onChange={HandleChange}
+               onChange={handleChange}
             />
             <label>URL:</label>
             <input
@@ -97,7 +97,7 @@ function Form() {
                value={inputData.url}
                name="url"
                placeholder=" Add URL"
-               onChange={HandleChange}
+               onChange={handleChange}
             />
             {error && <ErrorMsg msg={error} />}
             <Button text="Add" />
