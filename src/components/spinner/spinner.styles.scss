@@ -1,3 +1,10 @@
+@mixin flex($display: flex, $justify-content: center, $align-items: center) {
+   display: $display;
+   justify-content: $justify-content;
+   align-items: $align-items;
+   @content;
+}
+
 .loading-page {
    padding-top: 4rem;
    z-index: 2;

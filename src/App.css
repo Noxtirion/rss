@@ -1,0 +1,21 @@
+*,
+*:before,
+*:after {
+   box-sizing: border-box;
+}
+
+.appWrapper {
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+html {
+   overflow-y: scroll;
+}
+
+body {
+   margin: 0px;
+   font-family: Cantata One, Georgia, "Times New Roman", Times, serif;
+   line-height: 1.5;
+   letter-spacing: 0.4px;
+}

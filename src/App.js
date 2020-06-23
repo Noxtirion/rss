@@ -1,9 +1,12 @@
 import React from "react";
-import "./scss/style.scss";
-import TopBar from "./components/TopBar";
-import Form from "./components/Form";
+
+import TopBar from "./components/top-bar/top-bar.component.jsx";
+import Form from "./pages/form/form.component.jsx";
+import FeedPage from "./pages/feed-page/feed-page.component.jsx";
+
 import { Switch, Route } from "react-router-dom";
-import FeedPage from "./components/FeedPage";
+
+import "./App.css";
 
 function App() {
    return (

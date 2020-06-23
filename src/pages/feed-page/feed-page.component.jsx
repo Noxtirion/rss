@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import FeedInfo from "./FeedInfo";
+import FeedInfo from "../../components/feed-info/feed-info.component";
+import ButtonUp from "../../components/button-up/button-up.component";
+import Spinner from "../../components/spinner/spinner.component";
+
 import { useParams } from "react-router-dom";
-import Spinner from "./Spinner";
 import { useInView } from "react-intersection-observer";
-import ButtonUp from "./ButtonUp";
+
+import "./feed-page.styles.scss";
+
 let Parser = require("rss-parser");
 let parser = new Parser();
 
@@ -86,9 +90,9 @@ function FeedPage() {
    return (
       <>
          {isLoading ? (
-            <div className="feedInfo">
-               <h1 className="feedInfo__mainTitle" ref={ref}>
-                  <img src={require("../newspaper.svg")} alt="Newspaper icon" />
+            <div className="feedPage">
+               <h1 className="feedPage__mainTitle" ref={ref}>
+                  <img src={require("../../assets/newspaper.svg")} alt="Newspaper icon" />
                   {feedMainTitle}
                </h1>
                {feedInfoCollection}

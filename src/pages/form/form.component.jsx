@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Button from "./Button";
-import CollectionPage from "./CollectionPage";
-import validation from "./validation";
-import ErrorMsg from "./ErrorMsg";
-import ButtonUp from "./ButtonUp";
+import Button from "../../components/button/button.component";
+import CollectionPage from "../../components/collection-page/collection-page.component";
+import validation from "../../utils/validation";
+import ErrorMsg from "../../components/error-message/error-message.component";
+import ButtonUp from "../../components/button-up/button-up.component";
+
 import { useInView } from "react-intersection-observer";
+
+import "./form.styles.scss";
 
 function Form() {
    const [inputData, setInputData] = useState({ name: "", url: "" });

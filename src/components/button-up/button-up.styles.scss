@@ -1,3 +1,10 @@
+@mixin flex($display: flex, $justify-content: center, $align-items: center) {
+   display: $display;
+   justify-content: $justify-content;
+   align-items: $align-items;
+   @content;
+}
+
 .button-top {
    pointer-events: none;
    opacity: 0;
@@ -9,7 +16,7 @@
    right: 1.5rem;
    @include flex;
 
-   &__link {
+   &__wrapper {
       @include flex;
       height: 2.6rem;
       width: 2.6rem;

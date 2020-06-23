@@ -1,6 +1,8 @@
 import React from "react";
-import Button from "./Button";
+import Button from "../button/button.component";
 import { Link } from "react-router-dom";
+
+import "./collection-page.styles.scss";
 
 function CollectionPage({ index, name, url, remove }) {
    return (

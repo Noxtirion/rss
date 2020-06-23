@@ -1,9 +1,9 @@
 .form {
    padding-top: 4rem;
-   margin: 0 $pageMargin;
+   margin: 0 2rem;
    display: flex;
    flex-direction: column;
-   max-width: $pageWidth;
+   max-width: 1200px;
 
    input {
       height: 2rem;
