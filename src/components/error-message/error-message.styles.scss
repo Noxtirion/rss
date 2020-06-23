@@ -1,15 +1,10 @@
-@mixin flex($display: flex, $justify-content: center, $align-items: center) {
-   display: $display;
-   justify-content: $justify-content;
-   align-items: $align-items;
-   @content;
-}
-
 .errorMsg {
    height: 4rem;
    background-color: lightcoral;
    width: 14rem;
-   @include flex;
+   display: flex;
+   justify-content: center;
+   align-items: center;
    margin: 1rem auto 0;
    border-radius: 5px;
 

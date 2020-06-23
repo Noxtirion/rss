@@ -1,16 +1,11 @@
-@mixin flex($display: flex, $justify-content: center, $align-items: center) {
-   display: $display;
-   justify-content: $justify-content;
-   align-items: $align-items;
-   @content;
-}
-
 .loading-page {
    padding-top: 4rem;
    z-index: 2;
    height: 100vh;
    width: 100%;
-   @include flex;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 
    .loading-page__spinner {
       height: 4rem;

@@ -1,24 +1,14 @@
-@mixin textWrap($overflow-wrap: break-word) {
-   overflow-wrap: $overflow-wrap;
-   @content;
-}
-
-@mixin box($margin: 1rem) {
-   margin: $margin;
-   box-shadow: 6px 6px 10px gray;
-   @content;
-}
-
 .feedInfo {
    width: 100%;
    border: 1px solid #000;
    border-radius: 5px;
    padding: 0.5rem;
-   @include box;
+   margin: 1rem;
+   box-shadow: 6px 6px 10px gray;
 
    h2,
    p {
-      @include textWrap;
+      overflow-wrap: break-word;
    }
 
    &__desc {

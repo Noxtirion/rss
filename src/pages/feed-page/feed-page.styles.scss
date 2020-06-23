@@ -1,8 +1,3 @@
-@mixin textWrap($overflow-wrap: break-word) {
-   overflow-wrap: $overflow-wrap;
-   @content;
-}
-
 .feedPage {
    padding-top: 4rem;
    display: flex;
@@ -12,7 +7,7 @@
    margin: 0 auto;
 
    &__mainTitle {
-      @include textWrap;
+      overflow-wrap: break-word;
       font-size: 2rem;
       margin: 4rem 0.5rem 3rem 0.5rem;
 
