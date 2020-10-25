@@ -106,6 +106,7 @@ function Form() {
             {error && <ErrorMsg msg={error} />}
             <Button text="Add" />
          </form>
+         <div className="example-url"><p>Example URLs:</p>   <p>https://www.nasa.gov/rss/dyn/onthestation_rss.rss</p><p>https://www.polsatnews.pl/rss/polska.xml</p><p>http://fakty.interia.pl/nauka/feed</p><p>http://www.tvn24.pl/polska.xml</p></div>
          {addCollection}
          <ButtonUp appear={checkView ? "appear" : ""} />
       </>
